@@ -13,17 +13,25 @@ public class TripService {
 	// 로그인 했다면 로그인 유저가 파라메터로 전달된 유저와 친구인지 확인하고 
 	// 서로 친구라면 전달된 유저의 여행 목록을 조회한다.
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
+		User loggedInUser = getLoggedInUser();
+		
+		if(loggedInUser == null){
+			throw new UserNotLoggedInException();
+		}
+		
 		List<Trip> tripList = new ArrayList<Trip>();
-		User loggedUser = getLoggedInUser();
-		boolean isFriend = false;
-		if (loggedUser != null) {
-			for (User friend : user.getFriends()) {
-				if (friend.equals(loggedUser)) {
+		if (loggedInUser != null) {
+			// if 구문 안에서만 사용되고 있으므로, 옮긴다
+			// 변수가 여기저기 사용되고 있으면, 사용되는 위치에 가깝게 모아야 한다.
+			//boolean isFriend = false;
+			
+			/*for (User friend : user.getFriends()) {
+				if (friend.equals(loggedInUser)) {
 					isFriend = true;
 					break;
 				}
-			}
-			if (isFriend) {
+			}*/
+			if (user.isFriendsWith(loggedInUser)) { // 인라인 작업
 				tripList = tripsBy(user);
 			}
 			return tripList;
