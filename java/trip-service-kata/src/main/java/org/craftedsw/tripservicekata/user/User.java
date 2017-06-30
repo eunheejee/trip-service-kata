@@ -26,4 +26,9 @@ public class User {
 		return trips;
 	}
 
+	public Boolean isFriendsWith(User anotherUser) {
+		// TODO Auto-generated method stub
+		return friends.contains(anotherUser);
+	}
+
 }
