@@ -11,5 +11,10 @@ public class TripDAO {
 		throw new CollaboratorCallException(
 				"TripDAO should not be invoked on an unit test.");
 	}
+
+	// 점진적으로 기존 코드들을 새 메소드를 사용하게 바꾼다.
+	public List<Trip> tripsBy(User user) {
+		return TripDAO.findTripsByUser(user);
+	}
 	
 }
